@@ -1,0 +1,12 @@
+{
+	"name": "pm_training_linkedservice_key_vault",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "pm_training_linkedservice_key_vault",
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://key-vault-prashant.vault.azure.net/"
+		}
+	}
+}

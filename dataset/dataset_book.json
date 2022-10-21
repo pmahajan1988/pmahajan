@@ -1,0 +1,32 @@
+{
+	"name": "dataset_book",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "pm_training_linkedservice_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "bookid",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "bookname",
+				"type": "varchar"
+			},
+			{
+				"name": "price",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "library",
+			"table": "book"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,19 @@
+{
+	"name": "db_to_db_metadatadriven_copy_task_i3q_ControlDS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "pm_training_linkedservice_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "db_to_db_metadatadriven_copy_task_i3q_20221010"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"table": "MainControlTable_i3q"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

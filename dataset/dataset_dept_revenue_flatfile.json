@@ -1,0 +1,52 @@
+{
+	"name": "dataset_dept_revenue_flatfile",
+	"properties": {
+		"description": "dataset_dept_revenue_flatfile",
+		"linkedServiceName": {
+			"referenceName": "pm_training_linkedservice_datalakegen2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"param_dept_revenue_file": {
+				"type": "string"
+			},
+			"param_container": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().param_dept_revenue_file",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().param_container",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "dept_id",
+				"type": "String"
+			},
+			{
+				"name": "dept_name",
+				"type": "String"
+			},
+			{
+				"name": "dept_revenue",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

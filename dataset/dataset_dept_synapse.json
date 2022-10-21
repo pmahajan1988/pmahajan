@@ -1,0 +1,37 @@
+{
+	"name": "dataset_dept_synapse",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "pm_training_linkedservice_synapse",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "dept_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "dname",
+				"type": "varchar"
+			},
+			{
+				"name": "Totalrevenue",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "targetrevenue",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "dim_dept"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

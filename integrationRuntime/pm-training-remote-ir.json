@@ -1,0 +1,7 @@
+{
+	"name": "pm-training-remote-ir",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "pm-training-remote-integration-runtime"
+	}
+}

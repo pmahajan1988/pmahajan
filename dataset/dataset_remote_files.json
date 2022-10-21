@@ -1,0 +1,34 @@
+{
+	"name": "dataset_remote_files",
+	"properties": {
+		"description": "dataset_remote_files",
+		"linkedServiceName": {
+			"referenceName": "pm_training_linkedservice_remote_filesystem",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "customer.csv",
+				"folderPath": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "customerid",
+				"type": "String"
+			},
+			{
+				"name": "customername",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

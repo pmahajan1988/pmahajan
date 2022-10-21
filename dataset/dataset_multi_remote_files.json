@@ -1,0 +1,24 @@
+{
+	"name": "dataset_multi_remote_files",
+	"properties": {
+		"description": "dataset_multi_remote_files",
+		"linkedServiceName": {
+			"referenceName": "pm_training_linkedservice_remote_filesystem",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"folderPath": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

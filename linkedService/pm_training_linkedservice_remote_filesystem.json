@@ -1,0 +1,18 @@
+{
+	"name": "pm_training_linkedservice_remote_filesystem",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "pm_training_linkedservice_remote_filesystem",
+		"annotations": [],
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "C:\\PM_ADF_Training\\files\\",
+			"userId": "Student",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0OGNhOGJlYS1iM2JiLTQ2MDAtYTVkMy1mOGY0NmQ2NGFkNzAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "pm-training-remote-ir",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

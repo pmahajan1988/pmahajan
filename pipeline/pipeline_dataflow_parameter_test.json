@@ -1,0 +1,47 @@
+{
+	"name": "pipeline_dataflow_parameter_test",
+	"properties": {
+		"description": "pipeline_dataflow_parameter_test",
+		"activities": [
+			{
+				"name": "dataflow_parameter_test",
+				"description": "dataflow_parameter_test",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dataflow_parameter_test",
+						"type": "DataFlowReference",
+						"parameters": {
+							"input_price": {
+								"value": "@pipeline().parameters.pipeline_price",
+								"type": "Expression"
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"parameters": {
+			"pipeline_price": {
+				"type": "int"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-14T06:17:21Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

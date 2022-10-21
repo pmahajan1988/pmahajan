@@ -1,0 +1,32 @@
+{
+	"name": "dataset_cogni_book",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "pm_training_linkedservice_sqldb_other_az_account",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "bookid",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "bookname",
+				"type": "varchar"
+			},
+			{
+				"name": "bookprice",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "cogni",
+			"table": "book"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

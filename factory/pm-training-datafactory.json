@@ -1,0 +1,9 @@
+{
+	"name": "pm-training-datafactory",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a1433cb7-333f-4c99-85c9-c10af3b78a34",
+		"tenantId": "ce5aa64a-240f-4eab-97d6-8f82e54274fc"
+	}
+}

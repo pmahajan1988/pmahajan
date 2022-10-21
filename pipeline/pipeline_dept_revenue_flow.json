@@ -1,0 +1,227 @@
+{
+	"name": "pipeline_dept_revenue_flow",
+	"properties": {
+		"description": "pipeline_dept_revenue_flow",
+		"activities": [
+			{
+				"name": "dept_revenue_file_to_table",
+				"description": "dept_revenue_file_to_table",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": {
+							"value": "@{concat('delete from ',pipeline().parameters.param_dept_schema,'.',pipeline().parameters.param_dept_revenue_table)}",
+							"type": "Expression"
+						},
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "dept_id",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "dept_id",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "dept_name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "dept_name",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "dept_revenue",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "dept_revenue",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "dataset_dept_revenue_flatfile",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_dept_revenue_file": {
+								"value": "@pipeline().parameters.param_dept_revenue_file_src",
+								"type": "Expression"
+							},
+							"param_container": {
+								"value": "@pipeline().parameters.param_container_src",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "dataset_dept_revenue_table",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_dept_schema": {
+								"value": "@pipeline().parameters.param_dept_schema",
+								"type": "Expression"
+							},
+							"param_dept_revenue_table": {
+								"value": "@pipeline().parameters.param_dept_revenue_table",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "dept_revenue_table_to_newfile",
+				"description": "dept_revenue_table_to_newfile",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "dept_revenue_file_to_table",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "dataset_dept_revenue_table",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_dept_schema": {
+								"value": "@pipeline().parameters.param_dept_schema",
+								"type": "Expression"
+							},
+							"param_dept_revenue_table": {
+								"value": "@pipeline().parameters.param_dept_revenue_table",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "dataset_dept_revenue_flatfile",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_dept_revenue_file": {
+								"value": "@pipeline().parameters.param_dept_revenue_file_tgt_new",
+								"type": "Expression"
+							},
+							"param_container": {
+								"value": "@pipeline().parameters.param_container_tgt",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"param_dept_revenue_file_src": {
+				"type": "String"
+			},
+			"param_dept_schema": {
+				"type": "String"
+			},
+			"param_dept_revenue_table": {
+				"type": "String"
+			},
+			"param_container_src": {
+				"type": "String"
+			},
+			"param_dept_revenue_file_tgt_new": {
+				"type": "string"
+			},
+			"param_container_tgt": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-07T14:42:39Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

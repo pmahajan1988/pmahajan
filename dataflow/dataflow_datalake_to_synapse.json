@@ -1,0 +1,146 @@
+{
+	"name": "dataflow_datalake_to_synapse",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "dataset_dept_revenue_file",
+						"type": "DatasetReference"
+					},
+					"name": "dept"
+				},
+				{
+					"dataset": {
+						"referenceName": "dataset_emp_file",
+						"type": "DatasetReference"
+					},
+					"name": "emp"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dataset_dept_synapse",
+						"type": "DatasetReference"
+					},
+					"name": "dimdept"
+				},
+				{
+					"dataset": {
+						"referenceName": "dataset_emp_synapse",
+						"type": "DatasetReference"
+					},
+					"name": "dimemp"
+				}
+			],
+			"transformations": [
+				{
+					"name": "deptcolumnchange"
+				},
+				{
+					"name": "deptcalculatetargetrevenue"
+				},
+				{
+					"name": "empcolumnchange"
+				},
+				{
+					"name": "emppassthru"
+				},
+				{
+					"name": "joinempdept"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          deptid as integer,",
+				"          deptname as string,",
+				"          revenue as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> dept",
+				"source(output(",
+				"          empid as integer,",
+				"          empname as string,",
+				"          emprole as string,",
+				"          salary as integer,",
+				"          deptid as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> emp",
+				"dept select(mapColumn(",
+				"          dept_id = deptid,",
+				"          deptname,",
+				"          totalrevenue = revenue",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> deptcolumnchange",
+				"deptcolumnchange derive(targetrevenue = totalrevenue*1.2,",
+				"          dname = initCap(deptname)) ~> deptcalculatetargetrevenue",
+				"emp select(mapColumn(",
+				"          eid = empid,",
+				"          empname,",
+				"          salary,",
+				"          deptid",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> empcolumnchange",
+				"empcolumnchange derive(ename = initCap(empname)) ~> emppassthru",
+				"emppassthru, deptcalculatetargetrevenue join(deptid == dept_id,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinempdept",
+				"deptcalculatetargetrevenue sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          dept_id as integer,",
+				"          dname as string,",
+				"          Totalrevenue as integer,",
+				"          targetrevenue as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          dept_id,",
+				"          dname,",
+				"          Totalrevenue = totalrevenue,",
+				"          targetrevenue",
+				"     )) ~> dimdept",
+				"joinempdept sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          eid as integer,",
+				"          ename as string,",
+				"          salary as integer,",
+				"          dname as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          eid,",
+				"          ename,",
+				"          salary,",
+				"          dname",
+				"     )) ~> dimemp"
+			]
+		}
+	}
+}

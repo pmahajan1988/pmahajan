@@ -1,0 +1,16 @@
+{
+	"name": "DestinationDataset_sjo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "pm_training_linkedservice_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"table": "AzureBlobFSFile"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,20 @@
+{
+	"name": "pm_training_linkedservice_sqldb_via_keyvault",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "pm_training_linkedservice_sqldb_via_keyvault",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "pm_training_linkedservice_key_vault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "key-sqldb-pm-user",
+				"secretVersion": "b5a59eedf5044053825f44d1e5cbec00"
+			}
+		}
+	}
+}

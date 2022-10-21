@@ -1,0 +1,47 @@
+{
+	"name": "dataset_dept_revenue_table",
+	"properties": {
+		"description": "dataset_dept_revenue_table",
+		"linkedServiceName": {
+			"referenceName": "pm_training_linkedservice_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"param_dept_schema": {
+				"type": "string"
+			},
+			"param_dept_revenue_table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "dept_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "dept_name",
+				"type": "varchar"
+			},
+			{
+				"name": "dept_revenue",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().param_dept_schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().param_dept_revenue_table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
