@@ -141,7 +141,6 @@
 												"type": "Lookup",
 												"dependsOn": [],
 												"policy": {
-													"timeout": null,
 													"retry": 0,
 													"retryIntervalInSeconds": 30,
 													"secureOutput": false,
@@ -292,7 +291,6 @@
 													}
 												],
 												"policy": {
-													"timeout": null,
 													"retry": 0,
 													"retryIntervalInSeconds": 30,
 													"secureOutput": false,
