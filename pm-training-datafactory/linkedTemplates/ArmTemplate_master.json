@@ -79,6 +79,10 @@
 			"type": "string",
 			"defaultValue": "key-sqldb-pm-user"
 		},
+		"trigger_CTS_file_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/bb1e7ea0-d8ec-4306-b556-2a7866252f95/resourceGroups/pm-training-resourcegroup/providers/Microsoft.Storage/storageAccounts/pmtrainingdatalakegen2"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -197,6 +201,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"trigger_CTS_file_properties_typeProperties_scope": {
+						"value": "[parameters('trigger_CTS_file_properties_typeProperties_scope')]"
 					}
 				}
 			},

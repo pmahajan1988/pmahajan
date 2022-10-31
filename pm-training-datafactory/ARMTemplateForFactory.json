@@ -78,6 +78,10 @@
 		"pm_training_linkedservice_sqldb_via_keyvault_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "key-sqldb-pm-user"
+		},
+		"trigger_CTS_file_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/bb1e7ea0-d8ec-4306-b556-2a7866252f95/resourceGroups/pm-training-resourcegroup/providers/Microsoft.Storage/storageAccounts/pmtrainingdatalakegen2"
 		}
 	},
 	"variables": {
@@ -3065,14 +3069,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "dataset_dept_new",
+								"referenceName": "dataset_CTS_file",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "dataset_dept_new_tgt",
+								"referenceName": "dataset_CTS_tgt",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -3086,8 +3090,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/dataset_dept_new')]",
-				"[concat(variables('factoryId'), '/datasets/dataset_dept_new_tgt')]"
+				"[concat(variables('factoryId'), '/datasets/dataset_CTS_file')]",
+				"[concat(variables('factoryId'), '/datasets/dataset_CTS_tgt')]"
 			]
 		},
 		{
@@ -3124,6 +3128,115 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/pm_training_linkedservice_datalakegen2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataset_CTS_file')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "pm_training_linkedservice_datalakegen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "CTS_emp_1.csv",
+						"fileSystem": "data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "deptid",
+						"type": "String"
+					},
+					{
+						"name": "deptname",
+						"type": "String"
+					},
+					{
+						"name": "revenue",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/pm_training_linkedservice_datalakegen2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataset_CTS_tgt')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "pm_training_linkedservice_datalakegen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "CTS_emp_1.csv",
+						"fileSystem": "data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/pm_training_linkedservice_datalakegen2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger_CTS_file')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "trigger_CTS_file",
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pipeline_dept_file_move",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/data/blobs/CTS",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('trigger_CTS_file_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pipeline_dept_file_move')]"
 			]
 		}
 	]

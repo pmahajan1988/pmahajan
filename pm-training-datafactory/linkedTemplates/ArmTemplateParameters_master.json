@@ -59,6 +59,9 @@
 		"pm_training_linkedservice_sqldb_via_keyvault_properties_typeProperties_connectionString_secretName": {
 			"value": "key-sqldb-pm-user"
 		},
+		"trigger_CTS_file_properties_typeProperties_scope": {
+			"value": "/subscriptions/bb1e7ea0-d8ec-4306-b556-2a7866252f95/resourceGroups/pm-training-resourcegroup/providers/Microsoft.Storage/storageAccounts/pmtrainingdatalakegen2"
+		},
 		"containerUri": {
 			"value": ""
 		},
