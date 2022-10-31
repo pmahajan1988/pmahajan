@@ -317,6 +317,84 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/dataset_CTS_file')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "pm_training_linkedservice_datalakegen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "CTS_emp_1.csv",
+						"fileSystem": "data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "deptid",
+						"type": "String"
+					},
+					{
+						"name": "deptname",
+						"type": "String"
+					},
+					{
+						"name": "revenue",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/pm_training_linkedservice_datalakegen2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataset_CTS_tgt')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "pm_training_linkedservice_datalakegen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "CTS_emp_1.csv",
+						"fileSystem": "data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/pm_training_linkedservice_datalakegen2')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/dataset_azure_file')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -455,7 +533,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dataset_dept_revenue_file')]",
+			"name": "[concat(parameters('factoryName'), '/dataset_dept_new_tgt')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -468,139 +546,26 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "dept.csv",
-						"folderPath": "input",
-						"fileSystem": "data"
+						"fileSystem": "source"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
-					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
 				"schema": [
 					{
-						"name": "deptid",
 						"type": "String"
 					},
 					{
-						"name": "deptname",
 						"type": "String"
 					},
 					{
-						"name": "revenue",
 						"type": "String"
 					}
 				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/pm_training_linkedservice_datalakegen2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataset_dept_revenue_flatfile')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "dataset_dept_revenue_flatfile",
-				"linkedServiceName": {
-					"referenceName": "pm_training_linkedservice_datalakegen2",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"param_dept_revenue_file": {
-						"type": "string"
-					},
-					"param_container": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().param_dept_revenue_file",
-							"type": "Expression"
-						},
-						"fileSystem": {
-							"value": "@dataset().param_container",
-							"type": "Expression"
-						}
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "dept_id",
-						"type": "String"
-					},
-					{
-						"name": "dept_name",
-						"type": "String"
-					},
-					{
-						"name": "dept_revenue",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/pm_training_linkedservice_datalakegen2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataset_dept_revenue_table')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "dataset_dept_revenue_table",
-				"linkedServiceName": {
-					"referenceName": "pm_training_linkedservice_sqldb",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"param_dept_schema": {
-						"type": "string"
-					},
-					"param_dept_revenue_table": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "dept_id",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "dept_name",
-						"type": "varchar"
-					},
-					{
-						"name": "dept_revenue",
-						"type": "int",
-						"precision": 10
-					}
-				],
-				"typeProperties": {
-					"schema": {
-						"value": "@dataset().param_dept_schema",
-						"type": "Expression"
-					},
-					"table": {
-						"value": "@dataset().param_dept_revenue_table",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/pm_training_linkedservice_sqldb')]"
 			]
 		}
 	]

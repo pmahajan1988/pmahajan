@@ -169,18 +169,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"pm_training_linkedservice_remote_filesystem_password": {
-						"value": "[parameters('pm_training_linkedservice_remote_filesystem_password')]"
-					},
-					"pm_training_linkedservice_remote_filesystem_properties_typeProperties_host": {
-						"value": "[parameters('pm_training_linkedservice_remote_filesystem_properties_typeProperties_host')]"
-					},
-					"pm_training_linkedservice_remote_filesystem_properties_typeProperties_userId": {
-						"value": "[parameters('pm_training_linkedservice_remote_filesystem_properties_typeProperties_userId')]"
-					},
-					"pm_training_linkedservice_sqldb_via_keyvault_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('pm_training_linkedservice_sqldb_via_keyvault_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -202,13 +190,45 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"pm_training_linkedservice_remote_filesystem_password": {
+						"value": "[parameters('pm_training_linkedservice_remote_filesystem_password')]"
+					},
+					"pm_training_linkedservice_remote_filesystem_properties_typeProperties_host": {
+						"value": "[parameters('pm_training_linkedservice_remote_filesystem_properties_typeProperties_host')]"
+					},
+					"pm_training_linkedservice_remote_filesystem_properties_typeProperties_userId": {
+						"value": "[parameters('pm_training_linkedservice_remote_filesystem_properties_typeProperties_userId')]"
+					},
+					"pm_training_linkedservice_sqldb_via_keyvault_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('pm_training_linkedservice_sqldb_via_keyvault_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'pm-training-datafactory_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "pm-training-datafactory_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
 					"trigger_CTS_file_properties_typeProperties_scope": {
 						"value": "[parameters('trigger_CTS_file_properties_typeProperties_scope')]"
 					}
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'pm-training-datafactory_ArmTemplate_1')]"
+				"[resourceId('Microsoft.Resources/deployments', 'pm-training-datafactory_ArmTemplate_2')]"
 			]
 		}
 	]
