@@ -1,10 +1,10 @@
 {
-	"name": "pipeline_dept_file_move",
+	"name": "pipeline_CTS_file_move",
 	"properties": {
 		"description": "pipeline_dept_file_move",
 		"activities": [
 			{
-				"name": "dept_file_copy",
+				"name": "CTS_file_copy",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {

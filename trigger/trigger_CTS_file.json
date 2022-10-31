@@ -3,11 +3,11 @@
 	"properties": {
 		"description": "trigger_CTS_file",
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "pipeline_dept_file_move",
+					"referenceName": "pipeline_CTS_file_move",
 					"type": "PipelineReference"
 				}
 			}
