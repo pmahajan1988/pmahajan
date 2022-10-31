@@ -1,0 +1,208 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "pm-training-datafactory"
+		},
+		"pm_training_linkedservice_databrick_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'pm_training_linkedservice_databrick'"
+		},
+		"pm_training_linkedservice_datalakegen2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'pm_training_linkedservice_datalakegen2'"
+		},
+		"pm_training_linkedservice_datalakegen2_gittest_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'pm_training_linkedservice_datalakegen2_gittest'"
+		},
+		"pm_training_linkedservice_datalakegen2_readonly_servicePrincipalCredential": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'pm_training_linkedservice_datalakegen2_readonly'"
+		},
+		"pm_training_linkedservice_remote_filesystem_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'pm_training_linkedservice_remote_filesystem'"
+		},
+		"pm_training_linkedservice_sqldb_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'pm_training_linkedservice_sqldb'"
+		},
+		"pm_training_linkedservice_sqldb2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'pm_training_linkedservice_sqldb2'"
+		},
+		"pm_training_linkedservice_sqldb_other_az_account_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'pm_training_linkedservice_sqldb_other_az_account'"
+		},
+		"pm_training_linkedservice_synapse_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'pm_training_linkedservice_synapse'"
+		},
+		"pm_training_linkedservice_datalakegen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://pmtrainingdatalakegen2.dfs.core.windows.net/"
+		},
+		"pm_training_linkedservice_datalakegen2_gittest_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://pmtrainingdatalakegen2.dfs.core.windows.net/"
+		},
+		"pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://pmtrainingdatalakegen2.dfs.core.windows.net/"
+		},
+		"pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "ce5aa64a-240f-4eab-97d6-8f82e54274fc"
+		},
+		"pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "5026fd16-48fa-4e19-82af-7bdf8b29d8d8"
+		},
+		"pm_training_linkedservice_key_vault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://key-vault-prashant.vault.azure.net/"
+		},
+		"pm_training_linkedservice_remote_filesystem_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "C:\\PM_ADF_Training\\files\\"
+		},
+		"pm_training_linkedservice_remote_filesystem_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "Student"
+		},
+		"pm_training_linkedservice_sqldb_via_keyvault_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "key-sqldb-pm-user"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "pm-training-datafactory_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"pm_training_linkedservice_databrick_accessToken": {
+						"value": "[parameters('pm_training_linkedservice_databrick_accessToken')]"
+					},
+					"pm_training_linkedservice_datalakegen2_accountKey": {
+						"value": "[parameters('pm_training_linkedservice_datalakegen2_accountKey')]"
+					},
+					"pm_training_linkedservice_datalakegen2_gittest_accountKey": {
+						"value": "[parameters('pm_training_linkedservice_datalakegen2_gittest_accountKey')]"
+					},
+					"pm_training_linkedservice_datalakegen2_readonly_servicePrincipalCredential": {
+						"value": "[parameters('pm_training_linkedservice_datalakegen2_readonly_servicePrincipalCredential')]"
+					},
+					"pm_training_linkedservice_sqldb_connectionString": {
+						"value": "[parameters('pm_training_linkedservice_sqldb_connectionString')]"
+					},
+					"pm_training_linkedservice_sqldb2_connectionString": {
+						"value": "[parameters('pm_training_linkedservice_sqldb2_connectionString')]"
+					},
+					"pm_training_linkedservice_sqldb_other_az_account_connectionString": {
+						"value": "[parameters('pm_training_linkedservice_sqldb_other_az_account_connectionString')]"
+					},
+					"pm_training_linkedservice_synapse_connectionString": {
+						"value": "[parameters('pm_training_linkedservice_synapse_connectionString')]"
+					},
+					"pm_training_linkedservice_datalakegen2_properties_typeProperties_url": {
+						"value": "[parameters('pm_training_linkedservice_datalakegen2_properties_typeProperties_url')]"
+					},
+					"pm_training_linkedservice_datalakegen2_gittest_properties_typeProperties_url": {
+						"value": "[parameters('pm_training_linkedservice_datalakegen2_gittest_properties_typeProperties_url')]"
+					},
+					"pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_url": {
+						"value": "[parameters('pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_url')]"
+					},
+					"pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_tenant": {
+						"value": "[parameters('pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_tenant')]"
+					},
+					"pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_servicePrincipalId')]"
+					},
+					"pm_training_linkedservice_key_vault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('pm_training_linkedservice_key_vault_properties_typeProperties_baseUrl')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "pm-training-datafactory_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"pm_training_linkedservice_remote_filesystem_password": {
+						"value": "[parameters('pm_training_linkedservice_remote_filesystem_password')]"
+					},
+					"pm_training_linkedservice_remote_filesystem_properties_typeProperties_host": {
+						"value": "[parameters('pm_training_linkedservice_remote_filesystem_properties_typeProperties_host')]"
+					},
+					"pm_training_linkedservice_remote_filesystem_properties_typeProperties_userId": {
+						"value": "[parameters('pm_training_linkedservice_remote_filesystem_properties_typeProperties_userId')]"
+					},
+					"pm_training_linkedservice_sqldb_via_keyvault_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('pm_training_linkedservice_sqldb_via_keyvault_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'pm-training-datafactory_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "pm-training-datafactory_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'pm-training-datafactory_ArmTemplate_1')]"
+			]
+		}
+	]
+}

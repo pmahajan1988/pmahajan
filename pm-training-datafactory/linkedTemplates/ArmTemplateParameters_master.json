@@ -1,0 +1,69 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "pm-training-datafactory"
+		},
+		"pm_training_linkedservice_databrick_accessToken": {
+			"value": ""
+		},
+		"pm_training_linkedservice_datalakegen2_accountKey": {
+			"value": ""
+		},
+		"pm_training_linkedservice_datalakegen2_gittest_accountKey": {
+			"value": ""
+		},
+		"pm_training_linkedservice_datalakegen2_readonly_servicePrincipalCredential": {
+			"value": ""
+		},
+		"pm_training_linkedservice_remote_filesystem_password": {
+			"value": ""
+		},
+		"pm_training_linkedservice_sqldb_connectionString": {
+			"value": ""
+		},
+		"pm_training_linkedservice_sqldb2_connectionString": {
+			"value": ""
+		},
+		"pm_training_linkedservice_sqldb_other_az_account_connectionString": {
+			"value": ""
+		},
+		"pm_training_linkedservice_synapse_connectionString": {
+			"value": ""
+		},
+		"pm_training_linkedservice_datalakegen2_properties_typeProperties_url": {
+			"value": "https://pmtrainingdatalakegen2.dfs.core.windows.net/"
+		},
+		"pm_training_linkedservice_datalakegen2_gittest_properties_typeProperties_url": {
+			"value": "https://pmtrainingdatalakegen2.dfs.core.windows.net/"
+		},
+		"pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_url": {
+			"value": "https://pmtrainingdatalakegen2.dfs.core.windows.net/"
+		},
+		"pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_tenant": {
+			"value": "ce5aa64a-240f-4eab-97d6-8f82e54274fc"
+		},
+		"pm_training_linkedservice_datalakegen2_readonly_properties_typeProperties_servicePrincipalId": {
+			"value": "5026fd16-48fa-4e19-82af-7bdf8b29d8d8"
+		},
+		"pm_training_linkedservice_key_vault_properties_typeProperties_baseUrl": {
+			"value": "https://key-vault-prashant.vault.azure.net/"
+		},
+		"pm_training_linkedservice_remote_filesystem_properties_typeProperties_host": {
+			"value": "C:\\PM_ADF_Training\\files\\"
+		},
+		"pm_training_linkedservice_remote_filesystem_properties_typeProperties_userId": {
+			"value": "Student"
+		},
+		"pm_training_linkedservice_sqldb_via_keyvault_properties_typeProperties_connectionString_secretName": {
+			"value": "key-sqldb-pm-user"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
