@@ -1518,7 +1518,7 @@
 											"referenceName": "dataset_multi_table",
 											"type": "DatasetReference",
 											"parameters": {
-												"schema": "multi_test",
+												"schema": "dbo",
 												"table": "@replace(item().name,'.csv','')"
 											}
 										}
