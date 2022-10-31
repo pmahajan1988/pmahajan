@@ -1,0 +1,18 @@
+{
+	"name": "emp_data_copy_delta_yto_ControlDS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "pm_training_linkedservice_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "emp_data_copy_delta_yto_20221031"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"table": "MainControlTable_yto"
+		}
+	}
+}
