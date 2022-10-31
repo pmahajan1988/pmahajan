@@ -1,5 +1,5 @@
 {
-	"name": "pipeline_dept_load",
+	"name": "pipeline_dept_load_new",
 	"properties": {
 		"description": "pipeline_dept_load",
 		"activities": [
