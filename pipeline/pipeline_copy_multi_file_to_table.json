@@ -76,7 +76,10 @@
 									"referenceName": "dataset_multi_table",
 									"type": "DatasetReference",
 									"parameters": {
-										"schema": "multi_schema",
+										"schema": {
+											"value": "@pipeline().parameters.schema",
+											"type": "Expression"
+										},
 										"table": "@replace(item().name,'.csv','')"
 									}
 								}
