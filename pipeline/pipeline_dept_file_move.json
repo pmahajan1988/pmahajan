@@ -56,7 +56,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "dataset_dept_new_tgt",
+						"referenceName": "dataset_CTS_tgt",
 						"type": "DatasetReference"
 					}
 				]
