@@ -52,6 +52,7 @@
 									"type": "AzureSqlSink",
 									"writeBehavior": "insert",
 									"sqlWriterUseTableLock": false,
+									"tableOption": "autoCreate",
 									"disableMetricsCollection": false
 								},
 								"enableStaging": false,
@@ -75,7 +76,7 @@
 									"referenceName": "dataset_multi_table",
 									"type": "DatasetReference",
 									"parameters": {
-										"schema": "dbo",
+										"schema": "multi_schema",
 										"table": "@replace(item().name,'.csv','')"
 									}
 								}
