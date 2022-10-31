@@ -337,7 +337,7 @@
 				"parameters": {
 					"MaxNumberOfObjectsReturnedFromLookupActivity": {
 						"type": "Int",
-						"defaultValue": 5000
+						"defaultValue": 50
 					},
 					"MaxNumberOfConcurrentTasks": {
 						"type": "Int",
