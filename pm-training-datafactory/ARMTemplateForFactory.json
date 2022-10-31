@@ -3295,6 +3295,7 @@
 											"type": "AzureSqlSink",
 											"writeBehavior": "insert",
 											"sqlWriterUseTableLock": false,
+											"tableOption": "autoCreate",
 											"disableMetricsCollection": false
 										},
 										"enableStaging": false,
@@ -3319,7 +3320,10 @@
 											"referenceName": "dataset_multi_table",
 											"type": "DatasetReference",
 											"parameters": {
-												"schema": "dbo",
+												"schema": {
+													"value": "@pipeline().parameters.schema",
+													"type": "Expression"
+												},
 												"table": "@replace(item().name,'.csv','')"
 											}
 										}
@@ -3362,6 +3366,11 @@
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
+				},
+				"parameters": {
+					"schema": {
+						"type": "string"
+					}
 				},
 				"annotations": []
 			},
