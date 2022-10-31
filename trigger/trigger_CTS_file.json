@@ -3,7 +3,7 @@
 	"properties": {
 		"description": "trigger_CTS_file",
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
