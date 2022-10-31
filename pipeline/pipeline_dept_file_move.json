@@ -50,7 +50,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "dataset_dept_new",
+						"referenceName": "dataset_CTS_file",
 						"type": "DatasetReference"
 					}
 				],
