@@ -39,7 +39,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> dept",
-				"dept filter(ERROR_FUNCTION('deptid=$in_dept_id')) ~> fildept",
+				"dept filter(deptid==$in_dept_id) ~> fildept",
 				"fildept sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
