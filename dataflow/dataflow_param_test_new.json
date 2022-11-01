@@ -1,0 +1,57 @@
+{
+	"name": "dataflow_param_test_new",
+	"properties": {
+		"description": "dataflow_param_test_new",
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "dataset_dept_table_new",
+						"type": "DatasetReference"
+					},
+					"name": "dept"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dataset_deptfile",
+						"type": "DatasetReference"
+					},
+					"name": "deptfile"
+				}
+			],
+			"transformations": [
+				{
+					"name": "fildept"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     in_dept_id as string",
+				"}",
+				"source(output(",
+				"          deptid as string,",
+				"          deptname as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> dept",
+				"dept filter(ERROR_FUNCTION('deptid=$in_dept_id')) ~> fildept",
+				"fildept sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          empid as string,",
+				"          empname as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> deptfile"
+			]
+		}
+	}
+}
