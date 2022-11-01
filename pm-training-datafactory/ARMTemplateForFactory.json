@@ -4319,6 +4319,65 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/pm_training_linkedservice_datalakegen2')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline_dataflow_param_dept')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "pipeline_dataflow_param_dept",
+				"activities": [
+					{
+						"name": "dept_param_test",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow_param_test_new",
+								"type": "DataFlowReference",
+								"parameters": {
+									"in_dept_id": {
+										"value": "'@{pipeline().parameters.in_dept}'",
+										"type": "Expression"
+									}
+								},
+								"datasetParameters": {
+									"dept": {},
+									"deptfile": {}
+								},
+								"linkedServiceParameters": {}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"in_dept": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow_param_test_new')]"
+			]
 		}
 	]
 }
