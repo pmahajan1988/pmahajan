@@ -4220,6 +4220,105 @@
 				"[concat(variables('factoryId'), '/datasets/dataset_book')]",
 				"[concat(variables('factoryId'), '/datasets/dataset_trgbook')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow_param_test_new')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "dataflow_param_test_new",
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "dataset_dept_table_new",
+								"type": "DatasetReference"
+							},
+							"name": "dept"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "dataset_deptfile",
+								"type": "DatasetReference"
+							},
+							"name": "deptfile"
+						}
+					],
+					"transformations": [
+						{
+							"name": "fildept"
+						}
+					],
+					"scriptLines": [
+						"parameters{",
+						"     in_dept_id as string",
+						"}",
+						"source(output(",
+						"          deptid as string,",
+						"          deptname as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> dept",
+						"dept filter(deptid==$in_dept_id) ~> fildept",
+						"fildept sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          empid as string,",
+						"          empname as string",
+						"     ),",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> deptfile"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/dataset_dept_table_new')]",
+				"[concat(variables('factoryId'), '/datasets/dataset_deptfile')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataset_deptfile')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "pm_training_linkedservice_datalakegen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "empid",
+						"type": "String"
+					},
+					{
+						"name": "empname",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/pm_training_linkedservice_datalakegen2')]"
+			]
 		}
 	]
 }
