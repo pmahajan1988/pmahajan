@@ -1,0 +1,17 @@
+{
+	"name": "pm_ls_sqldb_keyvault",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "pm_new_keyvault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "newsqldb"
+			}
+		}
+	}
+}
