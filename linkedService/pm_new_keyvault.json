@@ -1,0 +1,10 @@
+{
+	"name": "pm_new_keyvault",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://pm-new-keyvault.vault.azure.net/"
+		}
+	}
+}
